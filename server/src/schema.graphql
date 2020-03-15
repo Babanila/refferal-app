@@ -27,6 +27,7 @@ type Mutation {
     password: String!
     firstname: String!
     lastname: String!
+    refferalLink: String
   ): AuthPayload
   login(email: String!, password: String!): AuthPayload
   vote(linkId: ID!): Vote!
@@ -49,6 +50,8 @@ enum UserOrderByInput {
   lastname_DESC
   email_ASC
   email_DESC
+  refferalLink_ASC
+  refferalLink_DESC
   createdAt_ASC
   createdAt_DESC
 }
@@ -58,6 +61,7 @@ type User {
   firstname: String!
   lastname: String!
   email: String!
+  refferalLink: String
   links: [Link!]!
 }
 

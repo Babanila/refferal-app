@@ -75,7 +75,7 @@ function Header(props) {
         <div style={{ ...headerStyles.navLink }}>
           <div style={{ ...headerStyles.pageLink }}>
             <Link to="/" style={{ ...headerStyles.hLink }}>
-              <div style={{ ...headerStyles.linkDiv }}>new</div>
+              <div style={{ ...headerStyles.linkDiv }}>view list</div>
             </Link>
 
             {authToken && <div style={{ ...headerStyles.linkDiv }}>|</div>}

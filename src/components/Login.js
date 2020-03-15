@@ -20,7 +20,8 @@ const loginStyles = {
     padding: "12px 10px",
     margin: "8px 0",
     boxSizing: "border-box",
-    fontSize: "16px"
+    fontSize: "16px",
+    outline: "none"
   },
 
   buttonStyles: {
@@ -34,6 +35,7 @@ const loginStyles = {
     borderRadius: "4px",
     cursor: "pointer",
     fontSize: "16px",
+    outline: "none",
     textTransform: "uppercase",
     hover: {
       backgroundColor: "#2412EA"
@@ -48,6 +50,7 @@ const loginStyles = {
     borderRadius: "4px",
     cursor: "pointer",
     fontSize: "16px",
+    outline: "none",
     hover: {
       backgroundColor: "#EFEFEF"
     }
@@ -55,8 +58,20 @@ const loginStyles = {
 };
 
 const SIGNUP_MUTATION = gql`
-  mutation SignupMutation($email: String!, $password: String!, $name: String!) {
-    signup(email: $email, password: $password, name: $name) {
+  mutation SignupMutation(
+    $email: String!
+    $password: String!
+    $firstname: String!
+    $lastname: String!
+    $refferalLink: String
+  ) {
+    signup(
+      email: $email
+      password: $password
+      firstname: $firstname
+      lastname: $lastname
+      refferalLink: $refferalLink
+    ) {
       token
     }
   }
@@ -76,11 +91,19 @@ class Login extends Component {
     email: "",
     password: "",
     firstname: "",
-    lastname: ""
+    lastname: "",
+    refferalLink: ""
   };
 
   render() {
-    const { login, email, password, firstname, lastname } = this.state;
+    const {
+      login,
+      email,
+      password,
+      firstname,
+      lastname,
+      refferalLink
+    } = this.state;
     return (
       <div style={{ ...loginStyles.baseStyles }}>
         <div style={{ ...loginStyles.formStyles }}>
@@ -122,10 +145,20 @@ class Login extends Component {
             placeholder="Choose a safe password"
           />
 
+          {!login && (
+            <input
+              style={{ ...loginStyles.inputStyles }}
+              value={refferalLink}
+              onChange={e => this.setState({ refferalLink: e.target.value })}
+              type="text"
+              placeholder="refferal link"
+            />
+          )}
+
           <div>
             <Mutation
               mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
-              variables={{ email, password, firstname, lastname }}
+              variables={{ email, password, firstname, lastname, refferalLink }}
               onCompleted={data => this._confirm(data)}
             >
               {mutation => (

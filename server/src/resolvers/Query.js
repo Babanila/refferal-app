@@ -38,7 +38,8 @@ async function user(parent, args, context) {
         OR: [
           { firstname_contains: args.filter },
           { lastname_contains: args.filter },
-          { email_contains: args.filter }
+          { email_contains: args.filter },
+          { refferalLink_contains: args.filter }
         ]
       }
     })
@@ -50,7 +51,8 @@ async function user(parent, args, context) {
       OR: [
         { firstname_contains: args.filter },
         { lastname_contains: args.filter },
-        { email_contains: args.filter }
+        { email_contains: args.filter },
+        { refferalLink_contains: args.filter }
       ]
     },
     skip: args.skip,

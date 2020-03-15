@@ -13,6 +13,7 @@ type User {
   firstname: String!
   email: String! @unique
   password: String!
+  refferalLink: String
   links: [Link!]!
   votes: [Vote!]!
 }
