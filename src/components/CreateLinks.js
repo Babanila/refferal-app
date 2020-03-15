@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import { FEEDLINKS_QUERY } from "./LinkLists";
 
 const createLinkStyles = {
   baseStyles: {
@@ -41,22 +42,12 @@ const createLinkStyles = {
 };
 
 const POSTLINK_MUTATION = gql`
-  mutation PostMutation(
-    $description: String!
-    $url: String!
-    $postedBy: [Object]
-  ) {
-    post(description: $description, url: $url, postedBy: $postedBy) {
+  mutation PostMutation($description: String!, $url: String!) {
+    post(description: $description, url: $url) {
       id
       createdAt
       url
       description
-      postedBy {
-        id
-        email
-        firstname
-        lastname
-      }
     }
   }
 `;
@@ -79,19 +70,27 @@ class CreateLink extends Component {
             value={description}
             onChange={e => this.setState({ description: e.target.value })}
             type="text"
-            placeholder="A description for the link"
+            placeholder="A description for the referral link"
           />
           <input
             style={{ ...createLinkStyles.inputStyles }}
             value={url}
             onChange={e => this.setState({ url: e.target.value })}
             type="text"
-            placeholder="The URL for the link"
+            placeholder="Referral code"
           />
           <Mutation
             mutation={POSTLINK_MUTATION}
             variables={{ description, url }}
             onCompleted={() => this.props.history.push("/")}
+            update={(store, { data: { post } }) => {
+              const data = store.readQuery({ query: FEEDLINKS_QUERY });
+              data.feed.links.unshift(post);
+              store.writeQuery({
+                query: FEEDLINKS_QUERY,
+                data
+              });
+            }}
           >
             {postMutation => (
               <button

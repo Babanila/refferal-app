@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import Link from "./Link";
 import { AUTH_TOKEN } from "../constants";
 
-const FEEDLINKS_QUERY = gql`
+export const FEEDLINKS_QUERY = gql`
   {
     feed {
       links {

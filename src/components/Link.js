@@ -11,15 +11,9 @@ function Link(props) {
           margin: "3em"
         }}
       >
-        <p>Id: {link.postedBy ? link.postedBy.id : "null"}</p>
+        <span>{props.index + 1}.</span>
         <p>Description: {link.description}</p>
-        <p>Url: {link.url}</p>
-        <p>
-          CreatedBy:
-          {link.postedBy
-            ? `${link.postedBy.firstname} ${link.postedBy.lastname}`
-            : "Unknown"}
-        </p>
+        <p>Refferal Code: {link.url}</p>
         <p>Created: {differentBtwCreatedTimeAndNow(link.createdAt)}</p>
       </div>
     </div>
