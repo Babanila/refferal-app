@@ -10,7 +10,7 @@ function App() {
   return (
     <div style={{ width: "100%" }}>
       <Header />
-      <div>
+      <div style={{ marginTop: "6em" }}>
         <Switch>
           <Route exact path="/" component={LinkList} />
           <Route exact path="/create" component={CreateLink} />

@@ -3,31 +3,36 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
 const createLinkStyles = {
-  baseStyles: { width: "350px", minWidth: "300px", backgroundColor: "#f2f2f2" },
+  baseStyles: {
+    width: "100%",
+    minWidth: "360px",
+    margin: "0 auto"
+  },
 
   formStyles: {
     width: "300px",
     minWidth: "300px",
     borderRadius: "5px",
-    padding: "10px",
+    padding: "20px",
     fontSize: "16px",
     margin: "0 auto"
   },
 
   inputStyles: {
     width: "100%",
-    padding: "12px 10px",
-    margin: "8px 0",
+    fontSize: "16px",
+    padding: "10px 25px",
+    margin: "10px 0",
     boxSizing: "border-box",
-    fontSize: "16px"
+    outline: "none"
   },
 
   submitStyles: {
-    width: "100px",
     backgroundColor: "#4CAF50",
     color: "#FFFFFF",
     padding: "14px 20px",
-    marginLeft: "100px",
+    marginLeft: "35%",
+    marginTop: "0.5em",
     border: "none",
     borderRadius: "4px",
     cursor: "pointer",
@@ -36,12 +41,22 @@ const createLinkStyles = {
 };
 
 const POSTLINK_MUTATION = gql`
-  mutation PostMutation($description: String!, $url: String!) {
-    post(description: $description, url: $url) {
+  mutation PostMutation(
+    $description: String!
+    $url: String!
+    $postedBy: [Object]
+  ) {
+    post(description: $description, url: $url, postedBy: $postedBy) {
       id
       createdAt
       url
       description
+      postedBy {
+        id
+        email
+        firstname
+        lastname
+      }
     }
   }
 `;
@@ -57,6 +72,8 @@ class CreateLink extends Component {
     return (
       <div style={{ ...createLinkStyles.baseStyles }}>
         <div style={{ ...createLinkStyles.formStyles }}>
+          <h2 style={{ margin: "10px 0" }}>Create new referral link</h2>
+
           <input
             style={{ ...createLinkStyles.inputStyles }}
             value={description}
@@ -71,21 +88,21 @@ class CreateLink extends Component {
             type="text"
             placeholder="The URL for the link"
           />
+          <Mutation
+            mutation={POSTLINK_MUTATION}
+            variables={{ description, url }}
+            onCompleted={() => this.props.history.push("/")}
+          >
+            {postMutation => (
+              <button
+                style={{ ...createLinkStyles.submitStyles }}
+                onClick={postMutation}
+              >
+                Submit
+              </button>
+            )}
+          </Mutation>
         </div>
-        <Mutation
-          mutation={POSTLINK_MUTATION}
-          variables={{ description, url }}
-          onCompleted={() => this.props.history.push("/")}
-        >
-          {postMutation => (
-            <button
-              style={{ ...createLinkStyles.submitStyles }}
-              onClick={postMutation}
-            >
-              Submit
-            </button>
-          )}
-        </Mutation>
       </div>
     );
   }

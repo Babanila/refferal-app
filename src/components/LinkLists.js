@@ -11,12 +11,20 @@ const FEEDLINKS_QUERY = gql`
         createdAt
         url
         description
+        postedBy {
+          id
+          email
+          firstname
+          lastname
+        }
       }
     }
   }
 `;
 
-function LinkList() {
+function LinkList(props) {
+  console.log("AAAAAAAA", props.history);
+
   return (
     <Query query={FEEDLINKS_QUERY}>
       {({ loading, error, data }) => {
@@ -27,6 +35,7 @@ function LinkList() {
 
         return (
           <div>
+            <h3 style={{ marginLeft: "5%" }}>List of all users</h3>
             {linksToRender.map(link => (
               <Link key={link.id} link={link} />
             ))}

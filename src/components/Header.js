@@ -7,11 +7,13 @@ function Header(props) {
   const headerStyles = {
     base: {
       width: "100%",
-      height: "50px",
+      minWidth: "360px",
+      height: "auto",
       display: "flex",
-      backgroundColor: "#000066",
+      backgroundColor: "#000033",
       color: "#FFFFFF",
-      marginBottom: "2em"
+      position: "fixed",
+      top: 0
     },
 
     minBase: {
@@ -19,7 +21,7 @@ function Header(props) {
       display: "flex",
       margin: "0 auto",
       fontSize: "18px",
-      padding: "12px 10px"
+      padding: "10px"
     },
 
     title: {
@@ -28,17 +30,31 @@ function Header(props) {
       fontWeight: "bold"
     },
 
+    navLink: {
+      width: "70%",
+      height: "auto",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    },
+
+    pageLink: {
+      display: "flex",
+      alignItems: "center"
+    },
+
     linkDiv: {
       fontSize: "18px",
       textTransform: "uppercase",
-      marginLeft: "1em"
+      fontWeight: "bold",
+      marginRight: "1em"
     },
 
     logOutDiv: {
       fontSize: "18px",
       textTransform: "uppercase",
-      marginLeft: "40%",
       color: "#FFFFFF",
+      fontWeight: "bold",
       textDecoration: "none"
     },
 
@@ -56,33 +72,41 @@ function Header(props) {
       <div style={{ ...headerStyles.minBase }}>
         <div style={{ ...headerStyles.title }}>Referral App</div>
 
-        <Link to="/" style={{ ...headerStyles.hLink }}>
-          <div style={{ ...headerStyles.linkDiv }}>new</div>
-        </Link>
+        <div style={{ ...headerStyles.navLink }}>
+          <div style={{ ...headerStyles.pageLink }}>
+            <Link to="/" style={{ ...headerStyles.hLink }}>
+              <div style={{ ...headerStyles.linkDiv }}>new</div>
+            </Link>
 
-        {authToken && <div style={{ ...headerStyles.linkDiv }}>|</div>}
+            {authToken && <div style={{ ...headerStyles.linkDiv }}>|</div>}
 
-        {authToken && (
-          <Link to="/create" style={{ ...headerStyles.hLink }}>
-            <div style={{ ...headerStyles.linkDiv }}>Create referral link</div>
-          </Link>
-        )}
-
-        {authToken ? (
-          <div
-            style={{ ...headerStyles.logOutDiv }}
-            onClick={() => {
-              localStorage.removeItem(AUTH_TOKEN);
-              props.history.push(`/`);
-            }}
-          >
-            logout
+            {authToken && (
+              <Link to="/create" style={{ ...headerStyles.hLink }}>
+                <div style={{ ...headerStyles.linkDiv }}>
+                  Create referral link
+                </div>
+              </Link>
+            )}
           </div>
-        ) : (
-          <Link to="/login" style={{ ...headerStyles.logOutDiv }}>
-            <div style={{ ...headerStyles.logOutDiv }}>login</div>
-          </Link>
-        )}
+
+          {authToken ? (
+            <Link to="/login" style={{ ...headerStyles.logOutDiv }}>
+              <div
+                style={{ ...headerStyles.logOutDiv }}
+                onClick={() => {
+                  localStorage.removeItem(AUTH_TOKEN);
+                  props.history.push(`/`);
+                }}
+              >
+                logout
+              </div>
+            </Link>
+          ) : (
+            <Link to="/login" style={{ ...headerStyles.logOutDiv }}>
+              <div style={{ ...headerStyles.logOutDiv }}>login</div>
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );

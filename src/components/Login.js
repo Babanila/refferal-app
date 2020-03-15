@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { AUTH_TOKEN } from "../constants";
 
 const loginStyles = {
-  baseStyles: { width: "350px", minWidth: "300px" },
+  baseStyles: { width: "360px", minWidth: "300px", margin: "0 auto" },
 
   formStyles: {
     width: "300px",
@@ -28,23 +28,29 @@ const loginStyles = {
     backgroundColor: "#4CAF50",
     color: "#FFFFFF",
     padding: "8px 20px",
-    marginLeft: "120px",
+    marginLeft: "35%",
     marginBottom: "20px",
     border: "none",
     borderRadius: "4px",
     cursor: "pointer",
     fontSize: "16px",
-    textTranform: "uppercase"
+    textTransform: "uppercase",
+    hover: {
+      backgroundColor: "#2412EA"
+    }
   },
 
   button2Styles: {
     width: "250px",
     color: "#FFFFFF",
     padding: "5px 10px",
-    marginLeft: "30px",
+    marginLeft: "8%",
     borderRadius: "4px",
     cursor: "pointer",
-    fontSize: "16px"
+    fontSize: "16px",
+    hover: {
+      backgroundColor: "#EFEFEF"
+    }
   }
 };
 
@@ -77,9 +83,9 @@ class Login extends Component {
     const { login, email, password, firstname, lastname } = this.state;
     return (
       <div style={{ ...loginStyles.baseStyles }}>
-        <h2>{login ? "Login" : "Sign Up"}</h2>
-
         <div style={{ ...loginStyles.formStyles }}>
+          <h2 style={{ marginLeft: "35%" }}>{login ? "Login" : "Sign Up"}</h2>
+
           {!login && (
             <input
               style={{ ...loginStyles.inputStyles }}
@@ -115,41 +121,43 @@ class Login extends Component {
             type="password"
             placeholder="Choose a safe password"
           />
-        </div>
 
-        <div>
-          <Mutation
-            mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
-            variables={{ email, password, firstname, lastname }}
-            onCompleted={data => this._confirm(data)}
-          >
-            {mutation => (
-              <div onClick={mutation}>
-                {login ? (
-                  <button style={{ ...loginStyles.buttonStyles }}>login</button>
-                ) : (
-                  <button style={{ ...loginStyles.buttonStyles }}>
-                    Signup
-                  </button>
-                )}
-              </div>
-            )}
-          </Mutation>
+          <div>
+            <Mutation
+              mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
+              variables={{ email, password, firstname, lastname }}
+              onCompleted={data => this._confirm(data)}
+            >
+              {mutation => (
+                <div onClick={mutation}>
+                  {login ? (
+                    <button style={{ ...loginStyles.buttonStyles }}>
+                      login
+                    </button>
+                  ) : (
+                    <button style={{ ...loginStyles.buttonStyles }}>
+                      Signup
+                    </button>
+                  )}
+                </div>
+              )}
+            </Mutation>
 
-          <div onClick={() => this.setState({ login: !login })}>
-            {login ? (
-              <button style={{ ...loginStyles.button2Styles }}>
-                <span style={{ color: "#000000" }}>
-                  need to create an account?
-                </span>
-              </button>
-            ) : (
-              <button style={{ ...loginStyles.button2Styles }}>
-                <span style={{ color: "#000000" }}>
-                  already have an account?
-                </span>
-              </button>
-            )}
+            <div onClick={() => this.setState({ login: !login })}>
+              {login ? (
+                <button style={{ ...loginStyles.button2Styles }}>
+                  <span style={{ color: "#000000" }}>
+                    need to create an account?
+                  </span>
+                </button>
+              ) : (
+                <button style={{ ...loginStyles.button2Styles }}>
+                  <span style={{ color: "#000000" }}>
+                    already have an account?
+                  </span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
