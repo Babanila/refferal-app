@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { jsx, css } from "@emotion/core";
 
 const createLinkStyles = {
   baseStyles: { width: "350px", minWidth: "300px", backgroundColor: "#f2f2f2" },

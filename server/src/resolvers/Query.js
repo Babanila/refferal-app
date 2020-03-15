@@ -4,7 +4,8 @@ async function feed(parent, args, context) {
       where: {
         OR: [
           { description_contains: args.filter },
-          { url_contains: args.filter }
+          { url_contains: args.filter },
+          { postedBy_contains: args.filter }
         ]
       }
     })
@@ -13,7 +14,11 @@ async function feed(parent, args, context) {
 
   const links = await context.prisma.links({
     where: {
-      OR: [{ description_contains: args.filter }, { url_contains: args.filter }]
+      OR: [
+        { description_contains: args.filter },
+        { url_contains: args.filter },
+        { postedBy_contains: args.filter }
+      ]
     },
     skip: args.skip,
     first: args.first,

@@ -1,5 +1,4 @@
-import { jsx, css } from "@emotion/core";
-import React, { Component } from "react";
+import React from "react";
 
 function Link(props) {
   const { link } = props;
