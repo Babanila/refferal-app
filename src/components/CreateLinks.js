@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import { jsx, css } from "@emotion/core";
 
 const createLinkStyles = {
   baseStyles: { width: "350px", minWidth: "300px", backgroundColor: "#f2f2f2" },
@@ -11,8 +12,7 @@ const createLinkStyles = {
     borderRadius: "5px",
     padding: "10px",
     fontSize: "16px",
-    margin: "0 auto",
-    backgroundColor: "yellow"
+    margin: "0 auto"
   },
 
   inputStyles: {
@@ -73,7 +73,11 @@ class CreateLink extends Component {
             placeholder="The URL for the link"
           />
         </div>
-        <Mutation mutation={POSTLINK_MUTATION} variables={{ description, url }}>
+        <Mutation
+          mutation={POSTLINK_MUTATION}
+          variables={{ description, url }}
+          onCompleted={() => this.props.history.push("/")}
+        >
           {postMutation => (
             <button
               style={{ ...createLinkStyles.submitStyles }}
