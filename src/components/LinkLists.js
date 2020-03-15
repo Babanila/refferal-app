@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "./Link";
@@ -19,7 +19,6 @@ const FEEDLINKS_QUERY = gql`
 function LinkList() {
   return (
     <Query query={FEEDLINKS_QUERY}>
-      {/* {() => linksToRender.map(link => <Link key={link.id} link={link} />)} */}
       {({ loading, error, data }) => {
         if (loading) return <div>Fetching</div>;
         if (error) return <div>Error</div>;
