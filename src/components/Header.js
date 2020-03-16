@@ -81,7 +81,7 @@ function Header(props) {
             {authToken && <div style={{ ...headerStyles.linkDiv }}>|</div>}
 
             {authToken && (
-              <Link to="/create" style={{ ...headerStyles.hLink }}>
+              <Link to="/create-referral" style={{ ...headerStyles.hLink }}>
                 <div style={{ ...headerStyles.linkDiv }}>
                   Create referral link
                 </div>

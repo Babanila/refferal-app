@@ -4,7 +4,6 @@ type Link {
   description: String!
   url: String!
   postedBy: User
-  votes: [Vote!]!
 }
 
 type User {
@@ -15,7 +14,6 @@ type User {
   password: String!
   refferalLink: String
   links: [Link!]!
-  votes: [Vote!]!
 }
 
 type Vote {
