@@ -90,11 +90,11 @@ function Header(props) {
 
             {authToken && <div style={{ ...headerStyles.linkDiv }}>|</div>}
 
-            {authToken && (
+            {/* {authToken && (
               <Link to="/account" style={{ ...headerStyles.hLink }}>
                 <div style={{ ...headerStyles.linkDiv }}>My Account</div>
               </Link>
-            )}
+            )} */}
           </div>
 
           {authToken ? (
